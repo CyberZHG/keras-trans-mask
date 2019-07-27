@@ -1,7 +1,9 @@
 from unittest import TestCase
-from keras_trans_mask import RemoveMask, RestoreMask
-import keras
+
 import numpy as np
+
+from keras_trans_mask.backend import keras
+from keras_trans_mask import RemoveMask, RestoreMask
 
 
 class TestMasks(TestCase):

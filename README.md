@@ -8,7 +8,7 @@ Remove and restore masks for layers that do not support masking. Note that the r
 ## Install
 
 ```bash
-python setup.py install
+pip install keras-trans-mask
 ```
 
 ## Usage

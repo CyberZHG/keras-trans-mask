@@ -1,7 +1,16 @@
-import keras
+from .backend import keras
+from .backend import backend as K
 
 
 class RemoveMask(keras.layers.Layer):
+    """Remove mask from input tensor.
+
+    # Input shape
+        Tensor with shape: `(batch_size, ...)`.
+
+    # Output shape
+        Tensor with shape: `(batch_size, ...)`.
+    """
 
     def __init__(self, **kwargs):
         super(RemoveMask, self).__init__(**kwargs)
@@ -14,10 +23,19 @@ class RemoveMask(keras.layers.Layer):
         return None
 
     def call(self, inputs, **kwargs):
-        return inputs
+        return K.identity(inputs)
 
 
 class RestoreMask(keras.layers.Layer):
+    """Restore mask from the second tensor.
+
+    # Input shape
+        Tensor with shape: `(batch_size, ...)`.
+        Tensor with mask and shape: `(batch_size, ...)`.
+
+    # Output shape
+        Tensor with shape: `(batch_size, ...)`.
+    """
 
     def __init__(self, **kwargs):
         super(RestoreMask, self).__init__(**kwargs)
@@ -30,4 +48,4 @@ class RestoreMask(keras.layers.Layer):
         return mask[1]
 
     def call(self, inputs, **kwargs):
-        return inputs[0]
+        return K.identity(inputs[0])
