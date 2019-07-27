@@ -3,7 +3,7 @@ from unittest import TestCase
 import numpy as np
 
 from keras_trans_mask.backend import keras
-from keras_trans_mask import RemoveMask, RestoreMask
+from keras_trans_mask import CreateMask, RemoveMask, RestoreMask
 
 
 class TestMasks(TestCase):
@@ -13,8 +13,9 @@ class TestMasks(TestCase):
         embed_layer = keras.layers.Embedding(
             input_dim=10,
             output_dim=15,
-            mask_zero=True,
         )(input_layer)
+        mask_layer = CreateMask(mask_value=9)(input_layer)
+        embed_layer = RestoreMask()([embed_layer, mask_layer])
         removed_layer = RemoveMask()(embed_layer)
         conv_layer = keras.layers.Conv1D(
             filters=32,
@@ -28,8 +29,8 @@ class TestMasks(TestCase):
         model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
         model.summary()
         x = np.array([
-            [1, 2, 3, 4, 5, 0, 0, 0],
-            [6, 7, 8, 9, 0, 0, 0, 0],
+            [1, 2, 3, 4, 5, 9, 9, 9],
+            [6, 7, 8, 9, 9, 9, 9, 9],
         ] * 1024)
         y = np.array([[0], [1]] * 1024)
         model.fit(x, y, epochs=10)
