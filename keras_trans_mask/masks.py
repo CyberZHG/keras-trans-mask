@@ -56,7 +56,7 @@ class RemoveMask(keras.layers.Layer):
         return None
 
     def call(self, inputs, **kwargs):
-        return K.identity(inputs)
+        return inputs + 0.0
 
 
 class RestoreMask(keras.layers.Layer):
@@ -81,4 +81,4 @@ class RestoreMask(keras.layers.Layer):
         return mask[1]
 
     def call(self, inputs, **kwargs):
-        return K.identity(inputs[0])
+        return inputs[0] + 0.0

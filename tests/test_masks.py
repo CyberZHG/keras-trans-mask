@@ -1,4 +1,6 @@
 from unittest import TestCase
+import os
+import tempfile
 
 import numpy as np
 
@@ -33,4 +35,11 @@ class TestMasks(TestCase):
             [6, 7, 8, 9, 9, 9, 9, 9],
         ] * 1024)
         y = np.array([[0], [1]] * 1024)
+        model_path = os.path.join(tempfile.gettempdir(), 'test_trans_mask_%f.h5' % np.random.random())
+        model.save(model_path)
+        model = keras.models.load_model(model_path, custom_objects={
+            'CreateMask': CreateMask,
+            'RemoveMask': RemoveMask,
+            'RestoreMask': RestoreMask,
+        })
         model.fit(x, y, epochs=10)
