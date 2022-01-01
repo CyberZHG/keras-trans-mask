@@ -3,8 +3,8 @@ import os
 import tempfile
 
 import numpy as np
+from tensorflow import keras
 
-from keras_trans_mask.backend import keras
 from keras_trans_mask import CreateMask, RemoveMask, RestoreMask
 
 

@@ -1,8 +1,5 @@
 # Keras Transfer Masking
 
-[![Travis](https://travis-ci.org/CyberZHG/keras-trans-mask.svg)](https://travis-ci.org/CyberZHG/keras-trans-mask)
-[![Coverage](https://coveralls.io/repos/github/CyberZHG/keras-trans-mask/badge.svg?branch=master)](https://coveralls.io/github/CyberZHG/keras-trans-mask)
-
 Remove and restore masks for layers that do not support masking. Note that the result may be incorrect in most cases.
 
 ## Install
@@ -16,7 +13,7 @@ pip install keras-trans-mask
 `Conv1D` does not support masking. By removing the mask you'll get a "nearly correct" output:
 
 ```python
-import keras
+from tensorflow import keras
 from keras_trans_mask import RemoveMask, RestoreMask
 
 input_layer = keras.layers.Input(shape=(None,))
